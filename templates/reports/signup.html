@@ -1,0 +1,42 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<h1>一般ユーザー登録</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        ユーザー名：<br>
+        {{ form.username }}
+    </p>
+
+    <p>
+        メールアドレス：<br>
+        {{ form.email }}
+    </p>
+
+    <p>
+        パスワード：<br>
+        {{ form.password1 }}
+    </p>
+
+    <p>
+        パスワード（確認）：<br>
+        {{ form.password2 }}
+    </p>
+
+    <button type="submit">登録</button>
+</form>
+
+<p>
+    すでにアカウントを持っている場合は
+    <a href="{% url 'login' %}">ログイン</a>
+</p>
+
+{% if form.errors %}
+<div style="color: red;">
+    {{ form.errors }}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,130 @@
+.hd {
+    background-color: #1f337f;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.logo {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: #e6eaf5;
+    text-decoration: none;
+    letter-spacing: 0;
+    margin-left: 0;
+}
+
+.logo span {
+    margin: 0;
+    padding: 0;
+}
+
+.logo-flux {
+    font-weight: 700;
+}
+
+.logo-agent {
+    font-weight: 700;
+    margin-left: 0%;
+}
+
+.thin {
+    font-weight: 300;
+}
+
+.main-container {
+    padding: 30px 40px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 12px;
+    border: 1px solid #c9d0e3;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #ffffff;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.errorlist {
+    color: #c62828;
+    margin: 6px 0 0;
+    padding-left: 18px;
+}
+
+.create-btn {
+    display: inline-block;
+    background-color: #1f337f;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.create-btn:hover {
+    background-color: #16265f;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.delete {
+    background-color: #1f337f;
+}
+
+.pdf {
+    background-color: #1f337f;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #333;
+    padding: 8px;
+    vertical-align: middle;
+}
+
+td {
+    word-break: break-word;
+}

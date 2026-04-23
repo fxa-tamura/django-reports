@@ -1,0 +1,63 @@
+{% extends 'reports/base.html' %}
+{% block title %}管理者用 日報一覧{% endblock %}
+
+{% block content %}
+<p>現在のログインユーザー: {{ request.user.username }}</p>
+<h1>管理者用 日報一覧</h1>
+
+<form method="get" style="margin-bottom: 20px;">
+    <select name="user">
+        <option value="">全ユーザー</option>
+        {% for u in users %}
+        <option value="{{ u.id }}">{{ u.username }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">絞り込み</button>
+</form>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr>
+            <th>作業日</th>
+            <th>氏名</th>
+            <th>所属</th>
+            <th>目標</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in page_obj %}
+        <tr>
+            <td>{{ report.work_date }}</td>
+            <td>{{ report.employee_name }}</td>
+            <td>{{ report.department }}</td>
+            <td>{{ report.goal }}</td>
+            <td>
+                <a href="{% url 'report_update' report.pk %}" class="btn edit">編集</a>
+                <a href="{% url 'report_delete' report.pk %}" class="btn delete">削除</a>
+                <a href="{% url 'report_pdf' report.pk %}" class="btn pdf">PDF</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 16px;">
+    {% if page_obj.has_previous %}
+    <a href="?page=1">最初</a>
+    <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">最後</a>
+    {% endif %}
+</div>
+
+<form action="{% url 'admin_logout' %}" method="post" style="margin-bottom: 16px;">
+    {% csrf_token %}
+    <button type="submit">管理者ログアウト</button>
+</form>
+{% endblock %}

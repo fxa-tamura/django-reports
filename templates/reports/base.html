@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}日報アプリ{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'reports/css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="hd">
+        <a class="logo">
+            <span class="logo-flux">
+                F<span class="thin">lu</span>X
+            </span>
+            <span class="logo-agent">
+                A<span class="thin">gent</span>
+            </span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+<h1>日報削除</h1>
+
+<p>「{{ report.work_date|date:"Y年m月d日" }}」の日報を削除しますか？</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">削除する</button>
+</form>
+
+{% if request.user.is_staff %}
+<a href="{% url 'admin_report_list' %}">キャンセル</a>
+{% else %}
+<a href="{% url 'report_list' %}">キャンセル</a>
+{% endif %}

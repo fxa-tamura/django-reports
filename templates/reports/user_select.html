@@ -1,0 +1,23 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<h1>ログイン選択</h1>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'login' %}">
+        <button>一般ユーザーログイン</button>
+    </a>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'admin_login' %}">
+        <button>管理者ログイン</button>
+    </a>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'signup' %}">
+        <button>新規ユーザー登録</button>
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<p>現在のログインユーザー: {{ request.user.username }}</p>
+<h1>在宅勤務日報</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <table border="1" style="border-collapse: collapse; width: 100%;">
+        <tr>
+            <th>所属</th>
+            <td>{{ form.department }}</td>
+            <th>氏名</th>
+            <td>{{ form.employee_name }}</td>
+        </tr>
+        <tr>
+            <th>作業日</th>
+            <td colspan="3">{{ form.work_date }}</td>
+        </tr>
+        <tr>
+            <th>目標</th>
+            <td colspan="3">{{ form.goal }}</td>
+        </tr>
+        <tr>
+            <th>タスク</th>
+            <td colspan="3">
+                ・{{ form.task1 }}<br>
+                ・{{ form.task2 }}<br>
+                ・{{ form.task3 }}
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="5">業務内容</th>
+            <th>時間</th>
+            <th colspan="2">業務詳細</th>
+        </tr>
+        <tr>
+            <td>{{ form.work_time1 }}</td>
+            <td colspan="2">{{ form.work_detail1 }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.work_time2 }}</td>
+            <td colspan="2">{{ form.work_detail2 }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.work_time3 }}</td>
+            <td colspan="2">{{ form.work_detail3 }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.work_time4 }}</td>
+            <td colspan="2">{{ form.work_detail4 }}</td>
+        </tr>
+        <tr>
+            <th>総括</th>
+            <td colspan="3">{{ form.summary }}</td>
+        </tr>
+    </table>
+
+    <br>
+    <button type="submit">日報を登録</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fields = document.querySelectorAll('input[name^="work_time"]');
+
+        fields.forEach(field => {
+            field.addEventListener('focus', function () {
+                if (this.value === '') {
+                    this.value = '～';
+                    this.setSelectionRange(0, 0); // カーソルを前に
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
