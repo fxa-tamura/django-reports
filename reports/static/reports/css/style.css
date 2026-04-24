@@ -128,3 +128,13 @@ td {
 td {
     word-break: break-word;
 }
+
+.deleted-badge {
+    margin-left: 8px;
+    padding: 4px 8px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+}

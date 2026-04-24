@@ -33,9 +33,11 @@
             <td>{{ report.department }}</td>
             <td>{{ report.goal }}</td>
             <td>
-                <a href="{% url 'report_update' report.pk %}" class="btn edit">編集</a>
                 <a href="{% url 'report_delete' report.pk %}" class="btn delete">削除</a>
                 <a href="{% url 'report_pdf' report.pk %}" class="btn pdf">PDF</a>
+                {% if report.is_deleted %}
+                <span class="deleted-badge">作成者削除済み</span>
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

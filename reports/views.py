@@ -159,7 +159,7 @@ def report_list(request):
     if request.user.is_superuser:
         reports = Report.objects.all()
     else:
-        reports = Report.objects.filter(author=request.user)
+        reports = Report.objects.filter(author=request.user, is_deleted=False)
 
     reports = reports.order_by('-work_date')
 
@@ -203,7 +203,8 @@ def report_delete(request, pk):
         report = get_object_or_404(Report, pk=pk, author=request.user)
 
     if request.method == 'POST':
-        report.delete()
+        report.is_deleted = True
+        report.save()
         if request.user.is_staff:
             return redirect('admin_report_list')
         else:
@@ -222,9 +223,14 @@ def report_create(request):
     if request.method == 'POST':
         form = ReportForm(request.POST)
         if form.is_valid():
+            print("OK")
             report = form.save(commit=False)
             report.author = request.user
             report.save()
+
+            admins = User.objects.filter(is_staff=True).exclude(email='')
+            emails = [user.email for user in admins]
+            print(emails)
 
             pdf_data = build_report_pdf(report)
 
@@ -232,20 +238,20 @@ def report_create(request):
             message = (
                 f'新しい日報が登録されました。\n\n'
                 f'登録者: {request.user.username}\n'
-                f'メールアドレス: {report.author.email}\n'  # ←これ追加
+                f'登録者メール: {request.user.email}\n'
                 f'作業日: {report.work_date}\n'
                 f'所属: {report.department}\n'
                 f'氏名: {report.employee_name}\n'
                 f'目標: {report.goal}\n'
                 f'総括: {report.summary}\n'
-)
+            )
 
             email = EmailMessage(
                 subject=subject,
                 body=message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[settings.ADMIN_NOTIFICATION_EMAIL],
-                reply_to=[report.author.email],
+                to=emails,
+                reply_to=[request.user.email] if request.user.email else [],
             )
 
             email.attach(
@@ -257,6 +263,10 @@ def report_create(request):
             email.send(fail_silently=False)
 
             return redirect('report_list')
+
+        else:
+            print(form.errors)
+
     else:
         form = ReportForm()
 

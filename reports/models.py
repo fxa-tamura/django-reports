@@ -9,7 +9,7 @@ class Report(models.Model):
         null=True,
         blank=True,
     )
-
+    is_deleted = models.BooleanField(default=False)
     department = models.CharField('所属', max_length=100, blank=True)
     employee_name = models.CharField('氏名', max_length=100, blank=True)
     work_date = models.DateField('作業日')
