@@ -19,6 +19,8 @@ from django.core.mail import EmailMessage
 
 # ReportLab
 from reportlab.lib import colors
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -31,6 +33,16 @@ from .models import Report
 
 def build_report_pdf(report):
     buffer = BytesIO()
+
+    styles = getSampleStyleSheet()
+
+    normal_style = styles['Normal']
+    normal_style.fontName = 'Meiryo'
+    normal_style.fontSize = 10
+    normal_style.leading = 14
+    normal_style.wordWrap = 'CJK'
+
+    # ここから下で使う
 
     pdfmetrics.registerFont(TTFont('Meiryo', r'C:\Windows\Fonts\meiryo.ttc'))
 
@@ -120,7 +132,7 @@ def build_report_pdf(report):
         ['', report.work_time2 or '', report.work_detail2 or ''],
         ['', report.work_time3 or '', report.work_detail3 or ''],
         ['', report.work_time4 or '', report.work_detail4 or ''],
-        ['総括', report.summary or ''],
+        ['総括', Paragraph(report.summary, normal_style)],
     ]
 
     body_table = Table(
