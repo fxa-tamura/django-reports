@@ -34,17 +34,19 @@ from .models import Report
 def build_report_pdf(report):
     buffer = BytesIO()
 
+    pdfmetrics.registerFont(TTFont('Meiryo', r'C:\Windows\Fonts\meiryo.ttc'))
+
     styles = getSampleStyleSheet()
 
     normal_style = styles['Normal']
     normal_style.fontName = 'Meiryo'
     normal_style.fontSize = 10
-    normal_style.leading = 14
+    normal_style.leading = 18
     normal_style.wordWrap = 'CJK'
 
-    # ここから下で使う
-
-    pdfmetrics.registerFont(TTFont('Meiryo', r'C:\Windows\Fonts\meiryo.ttc'))
+    summary_text = (report.summary or '')
+    summary_text = summary_text.replace('\r\n', '\n').replace('\r', '')
+    summary_text = summary_text.replace('\n', '<br/>')
 
     doc = SimpleDocTemplate(
         buffer,
@@ -132,13 +134,13 @@ def build_report_pdf(report):
         ['', report.work_time2 or '', report.work_detail2 or ''],
         ['', report.work_time3 or '', report.work_detail3 or ''],
         ['', report.work_time4 or '', report.work_detail4 or ''],
-        ['総括', Paragraph(report.summary, normal_style)],
+        ['総括', Paragraph(summary_text, normal_style)],
     ]
 
     body_table = Table(
         body_data,
         colWidths=[20 * mm, 45 * mm, 115 * mm],
-        rowHeights=[None, 22 * mm, None, None, None, None, None, 20 * mm]
+        rowHeights=[None, 22 * mm, None, None, None, None, None, 45 * mm]
     )
     body_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
@@ -336,6 +338,18 @@ def report_pdf(request, pk):
 
     elements = []
 
+    styles = getSampleStyleSheet()
+
+    normal_style = styles['Normal']
+    normal_style.fontName = 'Meiryo'
+    normal_style.fontSize = 10
+    normal_style.leading = 18
+    normal_style.wordWrap = 'CJK'
+
+    summary_text = (report.summary or '')
+    summary_text = summary_text.replace('\r\n', '\n').replace('\r', '')
+    summary_text = summary_text.replace('\n', '<br/>')
+
     # ==========
     # 共通幅
     # ==========
@@ -426,7 +440,7 @@ def report_pdf(request, pk):
         ['', report.work_time2 or '', report.work_detail2 or ''],
         ['', report.work_time3 or '', report.work_detail3 or ''],
         ['', report.work_time4 or '', report.work_detail4 or ''],
-        ['総括', report.summary or ''],
+        ['総括', Paragraph(summary_text, normal_style)],
     ]
 
     body_table = Table(
@@ -440,7 +454,7 @@ def report_pdf(request, pk):
             None,
             None,
             None,
-            20 * mm,    # 総括
+            45 * mm,       # 総括
         ]
     )
 
