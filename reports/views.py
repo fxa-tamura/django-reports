@@ -260,7 +260,7 @@ def report_create(request):
             emails = [user.email for user in admins]
             print(emails)
 
-            pdf_data = build_report_pdf(report)
+            # pdf_data = build_report_pdf(report)
 
             subject = '【FXA日報アプリ】日報が登録されました'
             message = (
@@ -282,11 +282,11 @@ def report_create(request):
                 reply_to=[request.user.email] if request.user.email else [],
             )
 
-            email.attach(
-                filename=f'report_{report.pk}.pdf',
-                content=pdf_data,
-                mimetype='application/pdf'
-            )
+           # email.attach(
+               # filename=f'report_{report.pk}.pdf',
+               # content=pdf_data,
+               # mimetype='application/pdf'
+            # )
 
             email.send(fail_silently=False)
 
