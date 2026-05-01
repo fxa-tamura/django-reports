@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,3 +133,22 @@ EMAIL_HOST_USER = 'n.tamura.fxa@gmail.com'
 EMAIL_HOST_PASSWORD = 'ehcvxuqwbsxrvxqw'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ADMIN_NOTIFICATION_EMAIL = 'n.tamura.fxa@gmail.com'
+
+import os
+import dj_database_url
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+]
+
+STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES["default"] = dj_database_url.parse(DATABASE_URL)
