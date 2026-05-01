@@ -41,7 +41,11 @@ font_path = os.path.join(
     'NotoSansJP-Regular.ttf'
 )
 
-pdfmetrics.registerFont(TTFont('NotoSansJP', font_path))
+if os.path.exists(font_path):
+    pdfmetrics.registerFont(TTFont('NotoSansJP', font_path))
+    PDF_FONT = 'NotoSansJP'
+else:
+    PDF_FONT = 'Helvetica'
 
 def build_report_pdf(report):
     buffer = BytesIO()
@@ -49,7 +53,7 @@ def build_report_pdf(report):
     styles = getSampleStyleSheet()
 
     normal_style = styles['Normal']
-    normal_style.fontName = 'NotoSansJP'
+    normal_style.fontName = PDF_FONT
     normal_style.fontSize = 10
     normal_style.leading = 18
     normal_style.wordWrap = 'CJK'
@@ -350,7 +354,7 @@ def report_pdf(request, pk):
     styles = getSampleStyleSheet()
 
     normal_style = styles['Normal']
-    normal_style.fontName = 'NotoSansJP'
+    normal_style.fontName = PDF_FONT
     normal_style.fontSize = 10
     normal_style.leading = 18
     normal_style.wordWrap = 'CJK'
