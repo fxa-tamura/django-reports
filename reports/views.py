@@ -18,6 +18,7 @@ from io import BytesIO
 from django.core.mail import EmailMessage
 
 # ReportLab
+import os
 from reportlab.lib import colors
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
@@ -31,15 +32,24 @@ from reportlab.lib.units import mm
 from .forms import ReportForm, SignUpForm
 from .models import Report
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+font_path = os.path.join(
+    BASE_DIR,
+    'reports',
+    'fonts',
+    'NotoSansJP-Regular.ttf'
+)
+
+pdfmetrics.registerFont(TTFont('NotoSansJP', font_path))
+
 def build_report_pdf(report):
     buffer = BytesIO()
-
-    pdfmetrics.registerFont(TTFont('Meiryo', r'C:\Windows\Fonts\meiryo.ttc'))
 
     styles = getSampleStyleSheet()
 
     normal_style = styles['Normal']
-    normal_style.fontName = 'Meiryo'
+    normal_style.fontName = 'NotoSansJP'
     normal_style.fontSize = 10
     normal_style.leading = 18
     normal_style.wordWrap = 'CJK'
@@ -69,7 +79,7 @@ def build_report_pdf(report):
         ('GRID', (0, 0), (-1, -1), 1.5, colors.black),
         ('BACKGROUND', (0, 0), (-1, -1), colors.black),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.white),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 14),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -88,7 +98,7 @@ def build_report_pdf(report):
     )
     info_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('ALIGN', (0, 0), (0, 0), 'CENTER'),
@@ -111,7 +121,7 @@ def build_report_pdf(report):
     )
     date_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 12),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -144,7 +154,7 @@ def build_report_pdf(report):
     )
     body_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('SPAN', (1, 0), (2, 0)),
@@ -324,8 +334,7 @@ def report_pdf(request, pk):
 
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'inline; filename="report_{pk}.pdf"'
-
-    pdfmetrics.registerFont(TTFont('Meiryo', r'C:\Windows\Fonts\meiryo.ttc'))
+    
 
     doc = SimpleDocTemplate(
         response,
@@ -341,7 +350,7 @@ def report_pdf(request, pk):
     styles = getSampleStyleSheet()
 
     normal_style = styles['Normal']
-    normal_style.fontName = 'Meiryo'
+    normal_style.fontName = 'NotoSansJP'
     normal_style.fontSize = 10
     normal_style.leading = 18
     normal_style.wordWrap = 'CJK'
@@ -366,7 +375,7 @@ def report_pdf(request, pk):
         ('GRID', (0, 0), (-1, -1), 1.5, colors.black),
         ('BACKGROUND', (0, 0), (-1, -1), colors.black),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.white),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 14),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -388,7 +397,7 @@ def report_pdf(request, pk):
     )
     info_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('ALIGN', (0, 0), (0, 0), 'CENTER'),
@@ -414,7 +423,7 @@ def report_pdf(request, pk):
     )
     date_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 12),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -460,7 +469,7 @@ def report_pdf(request, pk):
 
     body_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'Meiryo'),
+        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 
