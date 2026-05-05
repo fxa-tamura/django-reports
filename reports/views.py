@@ -1,4 +1,3 @@
-# Django
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -259,6 +258,8 @@ def report_create(request):
             admins = User.objects.filter(is_staff=True).exclude(email='')
             emails = [user.email for user in admins]
             print(emails)
+
+
 
             # pdf_data = build_report_pdf(report)
 
