@@ -255,33 +255,33 @@ def report_create(request):
             report.author = request.user
             report.save()
 
-            admins = User.objects.filter(is_staff=True).exclude(email='')
-            emails = [user.email for user in admins]
-            print(emails)
+            # admins = User.objects.filter(is_staff=True).exclude(email='')
+            # emails = [user.email for user in admins]
+            # print(emails)
 
 
 
             # pdf_data = build_report_pdf(report)
 
-            subject = '【FXA日報アプリ】日報が登録されました'
-            message = (
-                f'新しい日報が登録されました。\n\n'
-                f'登録者: {request.user.username}\n'
-                f'登録者メール: {request.user.email}\n'
-                f'作業日: {report.work_date}\n'
-                f'所属: {report.department}\n'
-                f'氏名: {report.employee_name}\n'
-                f'目標: {report.goal}\n'
-                f'総括: {report.summary}\n'
-            )
+            # subject = '【FXA日報アプリ】日報が登録されました'
+            # message = (
+            #     f'新しい日報が登録されました。\n\n'
+            #     f'登録者: {request.user.username}\n'
+            #     f'登録者メール: {request.user.email}\n'
+            #     f'作業日: {report.work_date}\n'
+            #     f'所属: {report.department}\n'
+            #     f'氏名: {report.employee_name}\n'
+            #     f'目標: {report.goal}\n'
+            #     f'総括: {report.summary}\n'
+            # )
 
-            email = EmailMessage(
-                subject=subject,
-                body=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=emails,
-                reply_to=[request.user.email] if request.user.email else [],
-            )
+            # email = EmailMessage(
+            #     subject=subject,
+            #     body=message,
+            #     from_email=settings.DEFAULT_FROM_EMAIL,
+            #     to=emails,
+            #     reply_to=[request.user.email] if request.user.email else [],
+            # )
 
            # email.attach(
                # filename=f'report_{report.pk}.pdf',
@@ -289,7 +289,7 @@ def report_create(request):
                # mimetype='application/pdf'
             # )
 
-            email.send(fail_silently=False)
+            # email.send(fail_silently=False)
 
             return redirect('report_list')
 
