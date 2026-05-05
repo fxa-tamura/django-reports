@@ -224,17 +224,21 @@ def report_update(request, pk):
 
 @login_required
 def report_delete(request, pk):
-    if request.user.is_superuser:
+    if request.user.is_staff:
         report = get_object_or_404(Report, pk=pk)
     else:
         report = get_object_or_404(Report, pk=pk, author=request.user)
 
     if request.method == 'POST':
-        report.is_deleted = True
-        report.save()
+
         if request.user.is_staff:
+            # 物理削除
+            report.delete()
             return redirect('admin_report_list')
         else:
+            # 論理削除
+            report.is_deleted = True
+            report.save()
             return redirect('report_list')
 
     return render(request, 'reports/report_delete.html', {
