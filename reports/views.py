@@ -82,7 +82,7 @@ def build_report_pdf(report):
         ('GRID', (0, 0), (-1, -1), 1.5, colors.black),
         ('BACKGROUND', (0, 0), (-1, -1), colors.black),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.white),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 14),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -101,7 +101,7 @@ def build_report_pdf(report):
     )
     info_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('ALIGN', (0, 0), (0, 0), 'CENTER'),
@@ -124,7 +124,7 @@ def build_report_pdf(report):
     )
     date_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 12),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -157,7 +157,7 @@ def build_report_pdf(report):
     )
     body_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('SPAN', (1, 0), (2, 0)),
@@ -384,7 +384,7 @@ def report_pdf(request, pk):
         ('GRID', (0, 0), (-1, -1), 1.5, colors.black),
         ('BACKGROUND', (0, 0), (-1, -1), colors.black),
         ('TEXTCOLOR', (0, 0), (-1, -1), colors.white),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 14),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -406,7 +406,7 @@ def report_pdf(request, pk):
     )
     info_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('ALIGN', (0, 0), (0, 0), 'CENTER'),
@@ -432,7 +432,7 @@ def report_pdf(request, pk):
     )
     date_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 12),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -478,7 +478,7 @@ def report_pdf(request, pk):
 
     body_table.setStyle(TableStyle([
         ('GRID', (0, 0), (-1, -1), 1.2, colors.black),
-        ('FONTNAME', (0, 0), (-1, -1), 'NotoSansJP'),
+        ('FONTNAME', (0, 0), (-1, -1), PDF_FONT),
         ('FONTSIZE', (0, 0), (-1, -1), 11),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 

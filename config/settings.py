@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'reports',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
